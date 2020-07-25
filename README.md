@@ -1,4 +1,4 @@
-Choose the right branch in this repository to get the code for the different parts of the series.
+### Salon App
 
 Install all dependencies
 ```sh
