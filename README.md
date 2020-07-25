@@ -9,5 +9,5 @@ npm install
 Run the server
 
 ```sh
-npm start
+npm run dev
 ```
