@@ -28,19 +28,20 @@ app.use(
   graphqlHttp({
     schema: graphQlSchema,
     rootValue: graphQlResolvers,
-    graphiql: true
+    graphiql: true,
   })
 );
+console.log('DB being used: ', process.env.MONGO_DB);
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.MONGO_USER}:${
-      process.env.MONGO_PASSWORD
-    }@cluster0-ntrwp.mongodb.net/${process.env.MONGO_DB}?retryWrites=true`
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@salonapp.vliw1.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
+    { useNewUrlParser: true }
   )
   .then(() => {
     app.listen(8000);
+    console.log('MongoDB connected');
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err);
   });

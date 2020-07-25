@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-
-import './Auth.css';
+import { Grid } from '@material-ui/core';
+import { Form, FormGroup, Label } from 'reactstrap';
 import AuthContext from '../context/auth-context';
 
 class AuthPage extends Component {
   state = {
-    isLogin: true
+    isLogin: true,
   };
 
   static contextType = AuthContext;
@@ -17,13 +17,14 @@ class AuthPage extends Component {
   }
 
   switchModeHandler = () => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return { isLogin: !prevState.isLogin };
     });
   };
 
-  submitHandler = event => {
+  submitHandler = (event) => {
     event.preventDefault();
+
     const email = this.emailEl.current.value;
     const password = this.passwordEl.current.value;
 
@@ -40,7 +41,7 @@ class AuthPage extends Component {
             tokenExpiration
           }
         }
-      `
+      `,
     };
 
     if (!this.state.isLogin) {
@@ -52,7 +53,7 @@ class AuthPage extends Component {
               email
             }
           }
-        `
+        `,
       };
     }
 
@@ -60,16 +61,16 @@ class AuthPage extends Component {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     })
-      .then(res => {
+      .then((res) => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Failed!');
         }
         return res.json();
       })
-      .then(resData => {
+      .then((resData) => {
         if (resData.data.login.token) {
           this.context.login(
             resData.data.login.token,
@@ -78,29 +79,59 @@ class AuthPage extends Component {
           );
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
   render() {
     return (
-      <form className="auth-form" onSubmit={this.submitHandler}>
-        <div className="form-control">
-          <label htmlFor="email">E-Mail</label>
-          <input type="email" id="email" ref={this.emailEl} />
-        </div>
-        <div className="form-control">
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" ref={this.passwordEl} />
-        </div>
-        <div className="form-actions">
-          <button type="submit">Submit</button>
-          <button type="button" onClick={this.switchModeHandler}>
-            Switch to {this.state.isLogin ? 'Signup' : 'Login'}
-          </button>
-        </div>
-      </form>
+      <div>
+        <Form onSubmit={this.submitHandler}>
+          <Grid item xs={12} md={12}>
+            <div>
+              <FormGroup>
+                <Label htmlFor="email">Email *</Label>
+                <input
+                  type="email"
+                  className="textarea"
+                  placeholder="Email"
+                  id="email"
+                  ref={this.emailEl}
+                  required
+                  minLength="5"
+                />
+              </FormGroup>
+            </div>
+          </Grid>
+          <FormGroup>
+            <div>
+              <Label htmlFor="password">Password *</Label>
+              <input
+                type="password"
+                className="textarea"
+                placeholder="Password"
+                id="password"
+                ref={this.passwordEl}
+                required
+              />
+            </div>
+          </FormGroup>
+          <br />
+          <div>
+            <button type="submit" className="btn">
+              SUBMIT
+            </button>
+            <button
+              type="button"
+              className="btn"
+              onClick={this.switchModeHandler}
+            >
+              Go to {this.state.isLogin ? 'REGISTER' : 'LOGIN'}
+            </button>
+          </div>
+        </Form>
+      </div>
     );
   }
 }

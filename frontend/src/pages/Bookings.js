@@ -7,7 +7,7 @@ import BookingList from '../components/Bookings/BookingList/BookingList';
 class BookingsPage extends Component {
   state = {
     isLoading: false,
-    bookings: []
+    bookings: [],
   };
 
   static contextType = AuthContext;
@@ -31,7 +31,7 @@ class BookingsPage extends Component {
              }
             }
           }
-        `
+        `,
     };
 
     fetch('http://localhost:8000/graphql', {
@@ -39,26 +39,26 @@ class BookingsPage extends Component {
       body: JSON.stringify(requestBody),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this.context.token
-      }
+        Authorization: 'Bearer ' + this.context.token,
+      },
     })
-      .then(res => {
+      .then((res) => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Failed!');
         }
         return res.json();
       })
-      .then(resData => {
+      .then((resData) => {
         const bookings = resData.data.bookings;
         this.setState({ bookings: bookings, isLoading: false });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         this.setState({ isLoading: false });
       });
   };
 
-  deleteBookingHandler = bookingId => {
+  deleteBookingHandler = (bookingId) => {
     this.setState({ isLoading: true });
     const requestBody = {
       query: `
@@ -68,7 +68,7 @@ class BookingsPage extends Component {
              title
             }
           }
-        `
+        `,
     };
 
     fetch('http://localhost:8000/graphql', {
@@ -76,24 +76,24 @@ class BookingsPage extends Component {
       body: JSON.stringify(requestBody),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this.context.token
-      }
+        Authorization: 'Bearer ' + this.context.token,
+      },
     })
-      .then(res => {
+      .then((res) => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Failed!');
         }
         return res.json();
       })
-      .then(resData => {
-        this.setState(prevState => {
-          const updatedBookings = prevState.bookings.filter(booking => {
+      .then((resData) => {
+        this.setState((prevState) => {
+          const updatedBookings = prevState.bookings.filter((booking) => {
             return booking._id !== bookingId;
           });
           return { bookings: updatedBookings, isLoading: false };
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         this.setState({ isLoading: false });
       });

@@ -4,11 +4,15 @@ body {
   font-family: sans-serif;
 }
 
-.form-control label,
-.form-control input,
-.form-control textarea {
-  width: 100%;
+.textarea {
   display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid rgb(106, 159, 230);
+  padding: 10px 15px;
+  padding-bottom: 10px;
+  font-size: 12px;
 }
 
 .form-control label {
@@ -19,23 +23,25 @@ body {
   margin-bottom: 1rem;
 }
 
-.form-actions button,
 .btn {
-  background: #5101d1;
-  font: inherit;
-  border: 1px solid #5101d1;
-  border-radius: 3px;
-  padding: 0.25rem 1rem;
-  margin-right: 1rem;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.26);
+  background: #000000;
+  border: 0;
+  border-radius: 4px;
   color: white;
+  font-family: sans-serif;
+  height: 40px;
+  width: 100%;
+  margin-top: 10;
+  margin-bottom: 5px;
   cursor: pointer;
 }
 
 .form-actions button:hover,
 .form-actions button:active,
-.btn:hover,
+.btn:hover {
+  opacity: 70%;
+}
 .btn:active {
-  background: #6219d6;
-  border-color: #6219d6;
+  background: rgb(57, 117, 167);
+  border-color: white;
 }
