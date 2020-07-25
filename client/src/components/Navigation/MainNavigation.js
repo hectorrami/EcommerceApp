@@ -21,7 +21,7 @@ const mainNavigation = () => {
               <ul>
                 {!context.token && (
                   <li>
-                    <NavLink to="/auth">Login</NavLink>
+                    <NavLink to="/">Login</NavLink>
                   </li>
                 )}
                 <li>

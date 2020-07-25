@@ -3,11 +3,7 @@ import { Grid } from '@material-ui/core';
 import { Form, FormGroup, Label } from 'reactstrap';
 import AuthContext from '../context/auth-context';
 
-class AuthPage extends Component {
-  state = {
-    isLogin: true,
-  };
-
+class Auth extends Component {
   static contextType = AuthContext;
 
   constructor(props) {
@@ -16,15 +12,8 @@ class AuthPage extends Component {
     this.passwordEl = React.createRef();
   }
 
-  switchModeHandler = () => {
-    this.setState((prevState) => {
-      return { isLogin: !prevState.isLogin };
-    });
-  };
-
   submitHandler = (event) => {
     event.preventDefault();
-
     const email = this.emailEl.current.value;
     const password = this.passwordEl.current.value;
 
@@ -44,18 +33,18 @@ class AuthPage extends Component {
       `,
     };
 
-    if (!this.state.isLogin) {
-      requestBody = {
-        query: `
-          mutation {
-            createUser(userInput: {email: "${email}", password: "${password}"}) {
-              _id
-              email
-            }
-          }
-        `,
-      };
-    }
+    // if (!this.state.isLogin) {
+    //   requestBody = {
+    //     query: `
+    //       mutation {
+    //         createUser(userInput: {email: "${email}", password: "${password}"}) {
+    //           _id
+    //           email
+    //         }
+    //       }
+    //     `,
+    //   };
+    // }
 
     fetch('http://localhost:8000/graphql', {
       method: 'POST',
@@ -122,13 +111,6 @@ class AuthPage extends Component {
             <button type="submit" className="btn">
               SUBMIT
             </button>
-            <button
-              type="button"
-              className="btn"
-              onClick={this.switchModeHandler}
-            >
-              Go to {this.state.isLogin ? 'REGISTER' : 'LOGIN'}
-            </button>
           </div>
         </Form>
       </div>
@@ -136,4 +118,4 @@ class AuthPage extends Component {
   }
 }
 
-export default AuthPage;
+export default Auth;

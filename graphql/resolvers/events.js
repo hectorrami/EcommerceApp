@@ -7,7 +7,7 @@ module.exports = {
   events: async () => {
     try {
       const events = await Event.find();
-      return events.map(event => {
+      return events.map((event) => {
         return transformEvent(event);
       });
     } catch (err) {
@@ -23,7 +23,7 @@ module.exports = {
       description: args.eventInput.description,
       price: +args.eventInput.price,
       date: new Date(args.eventInput.date),
-      creator: req.userId
+      creator: req.userId,
     });
     let createdEvent;
     try {
@@ -42,5 +42,5 @@ module.exports = {
       console.log(err);
       throw err;
     }
-  }
+  },
 };

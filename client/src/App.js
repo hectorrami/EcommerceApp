@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import LoginPage from './pages/Login';
 import BookingsPage from './pages/Bookings';
 import EventsPage from './pages/Events';
 import MainNavigation from './components/Navigation/MainNavigation';
 import AuthContext from './context/auth-context';
+import RegisterPage from './pages/RegisterPage';
 
 import './App.css';
 
@@ -40,18 +42,32 @@ class App extends Component {
                 <Switch>
                   {this.state.token && <Redirect from="/" to="/events" exact />}
                   {this.state.token && (
-                    <Redirect from="/auth" to="/events" exact />
+                    <Redirect from="/login" to="/events" exact />
                   )}
                   {!this.state.token && (
-                    <Route path="/auth" component={LoginPage} />
+                    <Route path="/login" component={LoginPage} />
                   )}
                   <Route path="/events" component={EventsPage} />
                   {this.state.token && (
                     <Route path="/bookings" component={BookingsPage} />
                   )}
-                  {!this.state.token && <Redirect to="/auth" exact />}
+                  {!this.state.token && <Redirect to="/login" exact />}
                 </Switch>
               </main>
+              {/* <Switch>
+                <Route exact path="/">
+                  <LoginPage />
+                </Route>
+                <Route exact path="/register">
+                  <RegisterPage />
+                </Route>
+                <PrivateRoute exact path="/events" token={this.state.token}>
+                  <EventsPage />
+                </PrivateRoute>
+                <PrivateRoute exact path="/bookings" token={this.state.token}>
+                  <BookingsPage />
+                </PrivateRoute>
+              </Switch> */}
             </AuthContext.Provider>
           </React.Fragment>
         </BrowserRouter>

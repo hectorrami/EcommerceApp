@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Modal from '../components/Modal/Modal';
 import Backdrop from '../components/Backdrop/Backdrop';
 import EventList from '../components/Events/EventList/EventList';
-import Spinner from '../components/Spinner/Spinner';
+import Loading from '../components/Load/Loading';
 import AuthContext from '../context/auth-context';
 import './Events.css';
 
@@ -12,7 +12,7 @@ class EventsPage extends Component {
     creating: false,
     events: [],
     isLoading: false,
-    selectedEvent: null
+    selectedEvent: null,
   };
   isActive = true;
 
@@ -64,7 +64,7 @@ class EventsPage extends Component {
               price
             }
           }
-        `
+        `,
     };
 
     const token = this.context.token;
@@ -74,17 +74,17 @@ class EventsPage extends Component {
       body: JSON.stringify(requestBody),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      }
+        Authorization: 'Bearer ' + token,
+      },
     })
-      .then(res => {
+      .then((res) => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Failed!');
         }
         return res.json();
       })
-      .then(resData => {
-        this.setState(prevState => {
+      .then((resData) => {
+        this.setState((prevState) => {
           const updatedEvents = [...prevState.events];
           updatedEvents.push({
             _id: resData.data.createEvent._id,
@@ -93,13 +93,13 @@ class EventsPage extends Component {
             date: resData.data.createEvent.date,
             price: resData.data.createEvent.price,
             creator: {
-              _id: this.context.userId
-            }
+              _id: this.context.userId,
+            },
           });
           return { events: updatedEvents };
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -125,29 +125,29 @@ class EventsPage extends Component {
               }
             }
           }
-        `
+        `,
     };
 
     fetch('http://localhost:8000/graphql', {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     })
-      .then(res => {
+      .then((res) => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Failed!');
         }
         return res.json();
       })
-      .then(resData => {
+      .then((resData) => {
         const events = resData.data.events;
         if (this.isActive) {
           this.setState({ events: events, isLoading: false });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         if (this.isActive) {
           this.setState({ isLoading: false });
@@ -155,9 +155,9 @@ class EventsPage extends Component {
       });
   }
 
-  showDetailHandler = eventId => {
-    this.setState(prevState => {
-      const selectedEvent = prevState.events.find(e => e._id === eventId);
+  showDetailHandler = (eventId) => {
+    this.setState((prevState) => {
+      const selectedEvent = prevState.events.find((e) => e._id === eventId);
       return { selectedEvent: selectedEvent };
     });
   };
@@ -176,7 +176,7 @@ class EventsPage extends Component {
              updatedAt
             }
           }
-        `
+        `,
     };
 
     fetch('http://localhost:8000/graphql', {
@@ -184,20 +184,20 @@ class EventsPage extends Component {
       body: JSON.stringify(requestBody),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this.context.token
-      }
+        Authorization: 'Bearer ' + this.context.token,
+      },
     })
-      .then(res => {
+      .then((res) => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Failed!');
         }
         return res.json();
       })
-      .then(resData => {
+      .then((resData) => {
         console.log(resData);
         this.setState({ selectedEvent: null });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -262,14 +262,13 @@ class EventsPage extends Component {
         )}
         {this.context.token && (
           <div className="events-control">
-            <p>Share your own Events!</p>
             <button className="btn" onClick={this.startCreateEventHandler}>
-              Create Event
+              Add Service
             </button>
           </div>
         )}
         {this.state.isLoading ? (
-          <Spinner />
+          <Loading />
         ) : (
           <EventList
             events={this.state.events}

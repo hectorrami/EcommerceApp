@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../../models/user');
 
 module.exports = {
-  createUser: async args => {
+  createUser: async (args) => {
     try {
       const existingUser = await User.findOne({ email: args.userInput.email });
       if (existingUser) {
@@ -14,7 +14,7 @@ module.exports = {
 
       const user = new User({
         email: args.userInput.email,
-        password: hashedPassword
+        password: hashedPassword,
       });
 
       const result = await user.save();
@@ -37,9 +37,9 @@ module.exports = {
       { userId: user.id, email: user.email },
       'somesupersecretkey',
       {
-        expiresIn: '1h'
+        expiresIn: '1h',
       }
     );
     return { userId: user.id, token: token, tokenExpiration: 1 };
-  }
+  },
 };

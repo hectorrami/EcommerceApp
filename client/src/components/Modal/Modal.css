@@ -1,6 +1,6 @@
 .modal {
   width: 90%;
-  background: white;
+  background: #f0ebeb;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   position: fixed;
   top: 20vh;
@@ -10,7 +10,7 @@
 
 .modal__header {
   padding: 1rem;
-  background: #5101d1;
+  background: black;
   color: white;
 }
 
@@ -23,9 +23,17 @@
   padding: 1rem;
 }
 
+.modal-btn {
+  background-color: red;
+}
+
+.modal-btn-ok {
+  background-color: green;
+}
+
 .modal__actions {
-  display: flex;
-  justify-content: flex-end;
+  display: block;
+  justify-content: center;
   padding: 1rem;
 }
 
