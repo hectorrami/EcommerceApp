@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
-import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import LoginPage from './pages/Login';
 import BookingsPage from './pages/Bookings';
 import EventsPage from './pages/Events';
 import MainNavigation from './components/Navigation/MainNavigation';
 import AuthContext from './context/auth-context';
-import RegisterPage from './pages/RegisterPage';
 
 import './App.css';
 
