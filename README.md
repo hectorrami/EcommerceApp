@@ -1,3 +1,5 @@
+### Salon App
+
 Install all dependencies
 
 ```sh
