@@ -89,7 +89,7 @@ class Register extends Component {
               <input
                 type="text"
                 className="textarea"
-                placeholder="Last Name"
+                placeholder="First Name"
                 id="firstName"
                 required
                 minLength="5"
@@ -120,8 +120,9 @@ class Register extends Component {
               <Label htmlFor="Phone Number">Phone Number *</Label>
               <input
                 type="tel"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                 className="textarea"
-                placeholder="Phone Number"
+                placeholder="xxx-xxx-xxxx"
                 id="phoneNumber"
                 required
               />
@@ -144,6 +145,8 @@ class Register extends Component {
               <Label htmlFor="password">Password *</Label>
               <input
                 type="password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Must contain: one number one uppercase and lowercase letter, and at least 8 or more characters"
                 className="textarea"
                 placeholder="Password"
                 id="password"

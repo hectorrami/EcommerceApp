@@ -15,7 +15,6 @@ class AuthPage extends Component {
     super(props);
     this.emailEl = React.createRef();
     this.passwordEl = React.createRef();
-    this.roleEl = React.createRef();
   }
 
   switchModeHandler = () => {

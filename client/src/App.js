@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import LoginPage from './pages/Login';
 import BookingsPage from './pages/Bookings';
+import ProfilePage from './pages/ProfilePage';
 import EventsPage from './pages/Events';
 import MainNavigation from './components/Navigation/MainNavigation';
 import AuthContext from './context/auth-context';
@@ -54,7 +55,7 @@ class App extends Component {
                   {this.state.token && (
                     <Route path="/bookings" component={BookingsPage} />
                   )}
-                  {!this.state.token && <Redirect to="/" exact />}
+                  {!this.state.token && <Redirect to="/register" />}
                 </Switch>
               </main>
             </AuthContext.Provider>
