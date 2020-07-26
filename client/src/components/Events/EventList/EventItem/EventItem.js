@@ -1,8 +1,8 @@
 import React from 'react';
 
 import './EventItem.css';
-
-const eventItem = props => (
+import { FaCheckCircle } from 'react-icons/fa';
+const eventItem = (props) => (
   <li key={props.eventId} className="events__list-item">
     <div>
       <h1>{props.title}</h1>
@@ -12,9 +12,12 @@ const eventItem = props => (
     </div>
     <div>
       {props.userId === props.creatorId ? (
-        <p>Your the owner of this event.</p>
+        <FaCheckCircle color="green" size="2rem" />
       ) : (
-        <button className="btn" onClick={props.onDetail.bind(this, props.eventId)}>
+        <button
+          className="btn"
+          onClick={props.onDetail.bind(this, props.eventId)}
+        >
           View Details
         </button>
       )}

@@ -1,250 +1,171 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
+//import { Grid } from '@material-ui/core';
+import { Form, FormGroup, Label } from 'reactstrap';
+import AuthContext from '../../context/auth-context';
 import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
-import { registerSchema } from '../../utils/yupSchemas';
-import PassErrorMsg from '../PasswordErrors/PassErrorMsg';
 
-const useStyles = makeStyles({
-  field: {
-    flexWrap: 'wrap',
-    minWidth: '16em',
-    maxWidth: '16em',
-  },
-  input: {
-    display: 'block',
-    boxSizing: 'border-box',
-    borderRadius: '0.25em',
-    marginBottom: 10,
-    width: '100%',
-    border: '0.0625em solid gray',
-    padding: '0.625em 0.9375em',
-    fontSize: '12px',
-    '&:disabled': {
-      opacity: '40%',
-    },
-  },
-  btn: {
-    background: '#000000',
-    border: 0,
-    borderRadius: '0.25em',
-    color: 'white',
-    fontFamily: ['Montserrat', 'sans-serif'].join(','),
-    height: 40,
-    width: '100%',
-    marginTop: '0.3125em',
-    marginBottom: '0.3125em',
-    '&:disabled': {
-      opacity: '40%',
-    },
-    '&:hover': {
-      opacity: '70%',
-    },
-  },
-  err: {
-    color: 'red',
-    marginBottom: '0.3125em',
-  },
-  text: {
-    marginBottom: 40,
-    textDecorationLine: 'none',
-  },
-});
-
-const Register = () => {
-  const [formData, setFormData] = useState([]);
-  const { register, handleSubmit, errors } = useForm({
-    reValidateMode: 'onSubmit',
-    validationSchema: registerSchema,
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+class Register extends Component {
+  state = {
+    isLogin: false,
   };
 
-  const onSubmit = (data) => {
-    setFormData(data);
+  static contextType = AuthContext;
+
+  constructor(props) {
+    super(props);
+    this.emailEl = React.createRef();
+    this.passwordEl = React.createRef();
+  }
+
+  submitHandler = (event) => {
+    event.preventDefault();
+
+    const email = this.emailEl.current.value;
+    const password = this.passwordEl.current.value;
+
+    if (email.trim().length === 0 || password.trim().length === 0) {
+      return;
+    }
+
+    let requestBody = {
+      query: `
+        query {
+          login(email: "${email}", password: "${password}") {
+            userId
+            token
+            tokenExpiration
+          }
+        }
+      `,
+    };
+
+    if (!this.state.isLogin) {
+      requestBody = {
+        query: `
+          mutation {
+            createUser(userInput: {email: "${email}", password: "${password}"}) {
+              _id
+              email
+            }
+          }
+        `,
+      };
+    }
+
+    fetch('http://localhost:8000/graphql', {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => {
+        if (res.status !== 200 && res.status !== 201) {
+          throw new Error('Failed!');
+        }
+        return res.json();
+      })
+      .then((resData) => {
+        if (resData.data.login.token) {
+          this.context.login(
+            resData.data.login.token,
+            resData.data.login.userId,
+            resData.data.login.tokenExpiration
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const classes = useStyles();
-
-  return (
-    <div data-testid="register" className={classes.field}>
+  render() {
+    return (
       <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid item xs={12} md={12}>
+        <Form onSubmit={this.submitHandler}>
+          <div>
+            <FormGroup>
+              <Label htmlFor="firstName">First Name *</Label>
+              <input
+                type="text"
+                className="textarea"
+                placeholder="Last Name"
+                id="firstName"
+                required
+                minLength="5"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="lastName">Last Name *</Label>
+              <input
+                type="text"
+                className="textarea"
+                placeholder="Last Name"
+                id="lastName"
+                required
+                minLength="5"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="birthDay">Birthday *</Label>
+              <input
+                type="Date"
+                className="textarea"
+                placeholder="Birthday"
+                id="birthDay"
+                required
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="Phone Number">Phone Number *</Label>
+              <input
+                type="tel"
+                className="textarea"
+                placeholder="Phone Number"
+                id="phoneNumber"
+                required
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="email">Email *</Label>
+              <input
+                type="email"
+                className="textarea"
+                placeholder="Email"
+                id="email"
+                ref={this.emailEl}
+                required
+                minLength="5"
+              />
+            </FormGroup>
+          </div>
+          <FormGroup>
             <div>
-              <label htmlFor="firstName">
-                {' '}
-                First Name *
-                <input
-                  data-testid="input-firstName"
-                  type="text"
-                  className={classes.input}
-                  name="firstName"
-                  placeholder="First Name"
-                  ref={register}
-                  onChange={(e) => handleChange(e)}
-                />
-                {errors.firstName && (
-                  <small className={classes.err}>
-                    {errors.firstName.message}
-                  </small>
-                )}
-              </label>
+              <Label htmlFor="password">Password *</Label>
+              <input
+                type="password"
+                className="textarea"
+                placeholder="Password"
+                id="password"
+                ref={this.passwordEl}
+                required
+                minLength="5"
+              />
             </div>
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <div>
-              <label htmlFor="lastName">
-                {' '}
-                Last Name *
-                <input
-                  type="text"
-                  className={classes.input}
-                  name="lastName"
-                  placeholder="Last Name"
-                  ref={register}
-                  onChange={(e) => handleChange(e)}
-                />
-                {errors.lastName && (
-                  <small className={classes.err}>
-                    {errors.lastName.message}
-                  </small>
-                )}
-              </label>
-            </div>
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <div>
-              <label htmlFor="email">
-                {' '}
-                Email *
-                <input
-                  type="text"
-                  name="email"
-                  placeholder="example@email.com"
-                  className={classes.input}
-                  ref={register}
-                  onChange={(e) => handleChange(e)}
-                />
-                {errors.email && (
-                  <small className={classes.err}>{errors.email.message}</small>
-                )}
-              </label>
-            </div>
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <div>
-              <label htmlFor="birthDay">
-                {' '}
-                Birthday *
-                <input
-                  type="text"
-                  name="birthDay"
-                  placeholder="mm/dd/yyyy"
-                  className={classes.input}
-                  ref={register}
-                  onChange={(e) => handleChange(e)}
-                />
-                {errors.birthDay && (
-                  <small className={classes.err}>
-                    {errors.birthDay.message}
-                  </small>
-                )}
-              </label>
-            </div>
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <div>
-              <label htmlFor="phoneNumber">
-                {' '}
-                Phone Number *
-                <input
-                  type="tel"
-                  name="phoneNumber"
-                  placeholder="xxx-xxx-xxx"
-                  max={12}
-                  className={classes.input}
-                  ref={register}
-                  onChange={(e) => handleChange(e)}
-                />
-                {errors.phoneNumber && (
-                  <small className={classes.err}>
-                    {errors.phoneNumber.message}
-                  </small>
-                )}
-              </label>
-            </div>
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <div>
-              <label htmlFor="password">
-                {' '}
-                Password *
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  className={classes.input}
-                  ref={register}
-                  onChange={(e) => handleChange(e)}
-                />
-                {errors.password && (
-                  <PassErrorMsg
-                    message={errors.password.message}
-                    data-testid="passErrMsg"
-                  />
-                )}
-              </label>
-            </div>
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <div>
-              <label htmlFor="confirmPassword">
-                {' '}
-                Confirm Password *
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="password"
-                  className={classes.input}
-                  ref={register}
-                  onChange={(e) => handleChange(e)}
-                />
-                {errors.confirmPassword && (
-                  <small className={classes.err}>
-                    {errors.confirmPassword.message}
-                  </small>
-                )}
-              </label>
-            </div>
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <button
-              type="submit"
-              data-testid="signup-submit"
-              className={classes.btn}
-            >
-              SIGN UP
+          </FormGroup>
+          <br />
+          <div>
+            <button type="submit" className="btn">
+              REGISTER
             </button>
-          </Grid>
-        </form>
+            <small>
+              Already have an account? Login <Link to="/">here</Link>
+            </small>
+          </div>
+        </Form>
       </div>
-      <div className={classes.text}>
-        <small>
-          Already have an account? Log in{' '}
-          <Link to="/" className={classes.text}>
-            here
-          </Link>
-        </small>
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Register;

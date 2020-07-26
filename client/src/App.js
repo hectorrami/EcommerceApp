@@ -7,6 +7,7 @@ import MainNavigation from './components/Navigation/MainNavigation';
 import AuthContext from './context/auth-context';
 
 import './App.css';
+import RegisterPage from './pages/RegisterPage';
 
 class App extends Component {
   state = {
@@ -39,33 +40,23 @@ class App extends Component {
               <main className="main-content">
                 <Switch>
                   {this.state.token && <Redirect from="/" to="/events" exact />}
-                  {this.state.token && (
-                    <Redirect from="/login" to="/events" exact />
-                  )}
                   {!this.state.token && (
-                    <Route path="/login" component={LoginPage} />
+                    <Switch>
+                      <Route exact path="/">
+                        <LoginPage />
+                      </Route>
+                      <Route exact path="/register">
+                        <RegisterPage />
+                      </Route>
+                    </Switch>
                   )}
                   <Route path="/events" component={EventsPage} />
                   {this.state.token && (
                     <Route path="/bookings" component={BookingsPage} />
                   )}
-                  {!this.state.token && <Redirect to="/login" exact />}
+                  {!this.state.token && <Redirect to="/" exact />}
                 </Switch>
               </main>
-              {/* <Switch>
-                <Route exact path="/">
-                  <LoginPage />
-                </Route>
-                <Route exact path="/register">
-                  <RegisterPage />
-                </Route>
-                <PrivateRoute exact path="/events" token={this.state.token}>
-                  <EventsPage />
-                </PrivateRoute>
-                <PrivateRoute exact path="/bookings" token={this.state.token}>
-                  <BookingsPage />
-                </PrivateRoute>
-              </Switch> */}
             </AuthContext.Provider>
           </React.Fragment>
         </BrowserRouter>

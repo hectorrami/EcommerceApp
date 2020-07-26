@@ -5,15 +5,27 @@ import Register from '../components/Register/Register';
 
 const useStyles = makeStyles({
   root: {
-    marginTop: 40,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 40,
+  },
+  logo: {
+    height: 160,
   },
 });
 
 const RegisterPage = () => {
   const classes = useStyles();
-
   return (
-    <div className={classes.root} data-testid="registerPage">
+    <div data-testid="loginPage">
+      <div className={classes.root}>
+        <img
+          alt="logo"
+          src="/Anayah+Logo+transparent.png"
+          className={classes.logo}
+        />
+      </div>
       <Grid container justify="center" alignItems="center">
         <Register />
       </Grid>

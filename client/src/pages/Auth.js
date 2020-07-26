@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import { Form, FormGroup, Label } from 'reactstrap';
 import AuthContext from '../context/auth-context';
+import { Link } from 'react-router-dom';
 
 class AuthPage extends Component {
   state = {
@@ -14,6 +15,7 @@ class AuthPage extends Component {
     super(props);
     this.emailEl = React.createRef();
     this.passwordEl = React.createRef();
+    this.roleEl = React.createRef();
   }
 
   switchModeHandler = () => {
@@ -117,18 +119,27 @@ class AuthPage extends Component {
               />
             </div>
           </FormGroup>
+          {/* <FormGroup>
+            <div>
+              <Label htmlFor="role">Role *</Label>
+              <input
+                type="text"
+                className="textarea"
+                placeholder="user/admin"
+                id="role"
+                ref={this.roleEl}
+                required
+              />
+            </div>
+          </FormGroup> */}
           <br />
           <div>
             <button type="submit" className="btn">
-              SUBMIT
+              LOGIN
             </button>
-            <button
-              type="button"
-              className="btn"
-              onClick={this.switchModeHandler}
-            >
-              Go to {this.state.isLogin ? 'REGISTER' : 'LOGIN'}
-            </button>
+            <small>
+              Need an account? Register <Link to="/register">here</Link>
+            </small>
           </div>
         </Form>
       </div>

@@ -11,16 +11,22 @@ import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import EventItem from './EventItem/EventItem';
 import './EventList.css';
-import stockPhoto from '../../../stock.jpg';
+import threading from '../../../threading.jpg';
 
 const useStyles = makeStyles((theme) => ({
+  center: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   root: {
     margin: 10,
+    maxWidth: 370,
+    background: 'white',
   },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
-    paddingBottom: '56.25',
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -44,7 +50,7 @@ const EventCard = ({ event, authUserId, onViewDetail }) => {
   };
 
   return (
-    <div>
+    <div className={classes.center}>
       <Card className={classes.root}>
         <CardHeader
           title="Anayah's Salon Service"
@@ -52,7 +58,7 @@ const EventCard = ({ event, authUserId, onViewDetail }) => {
         />
         <CardMedia
           className={classes.media}
-          image={stockPhoto}
+          image={threading}
           title="stock photo"
         />
         <CardActions disableSpacing>

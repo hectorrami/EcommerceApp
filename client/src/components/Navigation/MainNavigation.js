@@ -20,15 +20,20 @@ const mainNavigation = () => {
             <nav className="main-navigation__items">
               <ul>
                 {!context.token && (
-                  <li>
-                    <NavLink to="/">Login</NavLink>
-                  </li>
+                  <React.Fragment>
+                    <li>
+                      <NavLink to="/">Login</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/register">Register</NavLink>
+                    </li>
+                  </React.Fragment>
                 )}
-                <li>
-                  <NavLink to="/events">Services</NavLink>
-                </li>
                 {context.token && (
                   <React.Fragment>
+                    <li>
+                      <NavLink to="/events">Services</NavLink>
+                    </li>
                     <li>
                       <NavLink to="/bookings">Appointments</NavLink>
                     </li>
