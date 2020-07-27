@@ -1,7 +1,7 @@
 import React from 'react';
-
 import './EventItem.css';
 import { FaCheckCircle } from 'react-icons/fa';
+
 const eventItem = (props) => (
   <li key={props.eventId} className="events__list-item">
     <div>

@@ -11,6 +11,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    default: 'user',
+  },
   createdEvents: [
     {
       type: Schema.Types.ObjectId,

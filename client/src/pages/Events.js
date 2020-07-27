@@ -208,9 +208,11 @@ class EventsPage extends Component {
   }
 
   render() {
+    console.log(this.context);
     return (
       <React.Fragment>
         {(this.state.creating || this.state.selectedEvent) && <Backdrop />}
+
         {this.state.creating && (
           <Modal
             title="Create New Service"
@@ -269,6 +271,7 @@ class EventsPage extends Component {
             </Form>
           </Modal>
         )}
+
         {this.state.selectedEvent && (
           <Modal
             title={this.state.selectedEvent.title}
@@ -286,13 +289,18 @@ class EventsPage extends Component {
             <p>{this.state.selectedEvent.description}</p>
           </Modal>
         )}
-        {this.context.token && (
-          <div className="events-control">
-            <button className="btn" onClick={this.startCreateEventHandler}>
-              Create New Service
-            </button>
-          </div>
-        )}
+
+        {this.context.token &&
+          (this.context.role !== 'user' ? (
+            <div className="events-control">
+              <button className="btn" onClick={this.startCreateEventHandler}>
+                Create New Service
+              </button>
+            </div>
+          ) : (
+            []
+          ))}
+
         {this.state.isLoading ? (
           <Loading />
         ) : (

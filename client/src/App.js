@@ -14,14 +14,15 @@ class App extends Component {
   state = {
     token: null,
     userId: null,
+    role: null,
   };
 
-  login = (token, userId, tokenExpiration) => {
-    this.setState({ token: token, userId: userId });
+  login = (token, userId, role, tokenExpiration) => {
+    this.setState({ token: token, userId: userId, role: role });
   };
 
   logout = () => {
-    this.setState({ token: null, userId: null });
+    this.setState({ token: null, userId: null, role: null });
   };
 
   render() {
@@ -33,6 +34,7 @@ class App extends Component {
               value={{
                 token: this.state.token,
                 userId: this.state.userId,
+                role: this.state.role,
                 login: this.login,
                 logout: this.logout,
               }}

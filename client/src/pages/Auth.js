@@ -39,6 +39,7 @@ class AuthPage extends Component {
           login(email: "${email}", password: "${password}") {
             userId
             token
+            role
             tokenExpiration
           }
         }
@@ -52,6 +53,7 @@ class AuthPage extends Component {
             createUser(userInput: {email: "${email}", password: "${password}"}) {
               _id
               email
+              role
             }
           }
         `,
@@ -76,6 +78,7 @@ class AuthPage extends Component {
           this.context.login(
             resData.data.login.token,
             resData.data.login.userId,
+            resData.data.login.role,
             resData.data.login.tokenExpiration
           );
         }

@@ -34,12 +34,17 @@ module.exports = {
       throw new Error('Password is incorrect!');
     }
     const token = jwt.sign(
-      { userId: user.id, email: user.email },
+      { userId: user.id, email: user.email, role: user.role },
       'somesupersecretkey',
       {
         expiresIn: '1h',
       }
     );
-    return { userId: user.id, token: token, tokenExpiration: 1 };
+    return {
+      userId: user.id,
+      token: token,
+      role: user.role,
+      tokenExpiration: 1,
+    };
   },
 };

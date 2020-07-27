@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Loading from '../components/Load/Loading';
 import AuthContext from '../context/auth-context';
 import BookingList from '../components/Bookings/BookingList/BookingList';
+import { Paper } from '@material-ui/core';
 
 class BookingsPage extends Component {
   state = {
@@ -101,7 +102,7 @@ class BookingsPage extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         {this.state.isLoading ? (
           <Loading />
         ) : (
@@ -110,7 +111,7 @@ class BookingsPage extends Component {
             onDelete={this.deleteBookingHandler}
           />
         )}
-      </React.Fragment>
+      </div>
     );
   }
 }

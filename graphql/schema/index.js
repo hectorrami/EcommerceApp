@@ -22,12 +22,14 @@ type User {
   _id: ID!
   email: String!
   password: String
+  role: String!
   createdEvents: [Event!]
 }
 
 type AuthData {
   userId: ID!
   token: String!
+  role: String!
   tokenExpiration: Int!
 }
 

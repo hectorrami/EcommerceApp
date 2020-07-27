@@ -33,6 +33,7 @@ class Register extends Component {
           login(email: "${email}", password: "${password}") {
             userId
             token
+            role
             tokenExpiration
           }
         }
@@ -46,6 +47,7 @@ class Register extends Component {
             createUser(userInput: {email: "${email}", password: "${password}"}) {
               _id
               email
+              role
             }
           }
         `,
@@ -70,6 +72,7 @@ class Register extends Component {
           this.context.login(
             resData.data.login.token,
             resData.data.login.userId,
+            resData.data.login.role,
             resData.data.login.tokenExpiration
           );
         }
@@ -92,7 +95,7 @@ class Register extends Component {
                 placeholder="First Name"
                 id="firstName"
                 required
-                minLength="5"
+                minLength="3"
               />
             </FormGroup>
             <FormGroup>
@@ -103,7 +106,7 @@ class Register extends Component {
                 placeholder="Last Name"
                 id="lastName"
                 required
-                minLength="5"
+                minLength="3"
               />
             </FormGroup>
             <FormGroup>
