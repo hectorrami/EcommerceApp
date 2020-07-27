@@ -17,12 +17,6 @@ class AuthPage extends Component {
     this.passwordEl = React.createRef();
   }
 
-  switchModeHandler = () => {
-    this.setState((prevState) => {
-      return { isLogin: !prevState.isLogin };
-    });
-  };
-
   submitHandler = (event) => {
     event.preventDefault();
 
@@ -121,19 +115,6 @@ class AuthPage extends Component {
               />
             </div>
           </FormGroup>
-          {/* <FormGroup>
-            <div>
-              <Label htmlFor="role">Role *</Label>
-              <input
-                type="text"
-                className="textarea"
-                placeholder="user/admin"
-                id="role"
-                ref={this.roleEl}
-                required
-              />
-            </div>
-          </FormGroup> */}
           <br />
           <div>
             <button type="submit" className="btn">

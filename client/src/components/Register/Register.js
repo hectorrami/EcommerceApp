@@ -162,7 +162,7 @@ class Register extends Component {
           <br />
           <div>
             <button type="submit" className="btn">
-              REGISTER
+              SIGN UP
             </button>
             <small>
               Already have an account? Login <Link to="/">here</Link>

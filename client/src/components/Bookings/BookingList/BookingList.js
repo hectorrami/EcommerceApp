@@ -8,11 +8,10 @@ const bookingList = (props) => (
   <ul className="bookings__list">
     {props.bookings.map((booking) => {
       return (
-        <div>
+        <div key={booking._id}>
           <Paper>
-            <li key={booking._id} className="bookings__item">
+            <li className="bookings__item">
               <div className="bookings__item-data">
-                {'Service: '}
                 {booking.event.title} <br />
               </div>
               <div className="bookings__item-actions">

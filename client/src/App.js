@@ -4,7 +4,7 @@ import LoginPage from './pages/Login';
 import BookingsPage from './pages/Bookings';
 import ProfilePage from './pages/ProfilePage';
 import EventsPage from './pages/Events';
-import MainNavigation from './components/Navigation/MainNavigation';
+import Navbar from './components/Navigation/Navbar';
 import AuthContext from './context/auth-context';
 
 import './App.css';
@@ -22,7 +22,12 @@ class App extends Component {
   };
 
   logout = () => {
-    this.setState({ token: null, userId: null, role: null });
+    this.setState({
+      token: null,
+      userId: null,
+      role: null,
+      tokenExpiration: 1,
+    });
   };
 
   render() {
@@ -39,7 +44,7 @@ class App extends Component {
                 logout: this.logout,
               }}
             >
-              <MainNavigation />
+              <Navbar />
               <main className="main-content">
                 <Switch>
                   {this.state.token && <Redirect from="/" to="/events" exact />}
@@ -60,7 +65,6 @@ class App extends Component {
                   {this.state.token && (
                     <Route path="/bookings" component={BookingsPage} />
                   )}
-                  {!this.state.token && <Redirect to="/register" />}
                 </Switch>
               </main>
             </AuthContext.Provider>
