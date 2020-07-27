@@ -10,7 +10,7 @@
 
 .modal__header {
   padding: 1rem;
-  background: black;
+  background: #2e663d;
   color: white;
 }
 
@@ -21,14 +21,6 @@
 
 .modal__content {
   padding: 1rem;
-}
-
-.modal-btn {
-  background-color: red;
-}
-
-.modal-btn-ok {
-  background-color: green;
 }
 
 .modal__actions {

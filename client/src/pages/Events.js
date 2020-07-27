@@ -215,7 +215,7 @@ class EventsPage extends Component {
 
         {this.state.creating && (
           <Modal
-            title="Create New Service"
+            title="Add Product"
             canCancel
             canConfirm
             onCancel={this.modalCancelHandler}
@@ -225,7 +225,7 @@ class EventsPage extends Component {
             <Form>
               <FormGroup>
                 <div className="form-control">
-                  <Label htmlFor="title">Service</Label>
+                  <Label htmlFor="title">Product</Label>
                   <input
                     type="text"
                     className="textarea"
@@ -237,7 +237,7 @@ class EventsPage extends Component {
                   />
                 </div>
                 <div className="form-control">
-                  <Label htmlFor="price">Service Price</Label>
+                  <Label htmlFor="price">Price</Label>
                   <input
                     type="number"
                     className="textarea"
@@ -248,7 +248,7 @@ class EventsPage extends Component {
                     minLength="5"
                   />
                 </div>
-                <div className="form-control">
+                {/* <div className="form-control">
                   <label htmlFor="date">Date</label>
                   <input
                     type="datetime-local"
@@ -256,9 +256,9 @@ class EventsPage extends Component {
                     id="date"
                     ref={this.dateElRef}
                   />
-                </div>
+                </div> */}
                 <div className="form-control">
-                  <label htmlFor="description">Service Description</label>
+                  <label htmlFor="description">Product Description</label>
                   <textarea
                     id="description"
                     className="textarea"
@@ -294,7 +294,7 @@ class EventsPage extends Component {
           (this.context.role !== 'user' ? (
             <div className="events-control">
               <button className="btn" onClick={this.startCreateEventHandler}>
-                Create New Service
+                Add Product
               </button>
             </div>
           ) : (

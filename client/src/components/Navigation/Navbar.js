@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   appbar: {
-    background: 'black',
+    background: '#2e663d',
   },
   button: {
     color: 'white',
@@ -55,15 +55,16 @@ const Navbar = () => {
                   color="inherit"
                   aria-label="menu"
                 />
+                {/* Add Logo Here
                 <ButtonBase>
                   <img
                     alt="logo-icon"
-                    src="/Anayah-Logo-White.png"
+                    src=""
                     className={classes.smallLogo}
                   />
-                </ButtonBase>
+                </ButtonBase> */}
                 <Typography variant="h6" className={classes.title}>
-                  Anayah's Salon
+                  Ecommerce App
                 </Typography>
                 {!context.token && (
                   <React.Fragment>
@@ -84,12 +85,12 @@ const Navbar = () => {
                     <React.Fragment>
                       <Button>
                         <NavLink to="/events" className={classes.link}>
-                          Services
+                          Items
                         </NavLink>
                       </Button>
                       <Button>
                         <NavLink to="/bookings" className={classes.link}>
-                          Appointments
+                          Cart
                         </NavLink>
                       </Button>
                       <Button

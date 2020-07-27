@@ -13,7 +13,7 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import EventItem from './EventItem/EventItem';
 import './EventList.css';
-import threading from '../../../threading.jpg';
+import product from '../../../product.jpg';
 
 const useStyles = makeStyles((theme) => ({
   center: {
@@ -55,12 +55,12 @@ const EventCard = ({ event, authUserId, onViewDetail }) => {
     <div className={classes.center}>
       <Card className={classes.root}>
         <CardHeader
-          title="Anayah's Salon Service"
-          subheader="Click the dropdown to view service details"
+          title="Product"
+          subheader="Click to view more details about this product."
         />
         <CardMedia
           className={classes.media}
-          image={threading}
+          image={product}
           title="stock photo"
         />
         <CardActions disableSpacing>

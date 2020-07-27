@@ -29,7 +29,7 @@ const eventList = (props) => {
         </div>
       ) : (
         <div className={classes.center}>
-          <h3>No appointments available :(</h3>
+          <h3>No products available :(</h3>
         </div>
       )}
     </div>

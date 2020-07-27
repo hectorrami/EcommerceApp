@@ -18,14 +18,7 @@ const useStyles = makeStyles({
 const Login = () => {
   const classes = useStyles();
   return (
-    <div data-testid="loginPage">
-      <div className={classes.root}>
-        <img
-          alt="logo"
-          src="/Anayah+Logo+transparent.png"
-          className={classes.logo}
-        />
-      </div>
+    <div data-testid="loginPage" className={classes.root}>
       <Grid container justify="center" alignItems="center">
         <Auth />
       </Grid>

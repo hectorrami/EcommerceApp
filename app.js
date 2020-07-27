@@ -6,8 +6,16 @@ const mongoose = require('mongoose');
 const graphQlSchema = require('./graphql/schema/index');
 const graphQlResolvers = require('./graphql/resolvers/index');
 const isAuth = require('./middleware/is-auth');
-
 const app = express();
+require('dotenv').config();
+
+const {
+  PORT,
+  MONGO_DB,
+  MONGO_USER,
+  MONGO_PASSWORD,
+  MONGO_CLUSTER,
+} = process.env;
 
 app.use(bodyParser.json());
 
@@ -31,16 +39,19 @@ app.use(
     graphiql: true,
   })
 );
-console.log('DB being used: ', process.env.MONGO_DB);
+
+console.log('DB being used: ', MONGO_DB);
+
+const serverPort = PORT;
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@salonapp.vliw1.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
-    { useNewUrlParser: true }
+    `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_CLUSTER}/${MONGO_DB}?retryWrites=true&w=majority`,
+    { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }
   )
   .then(() => {
-    app.listen(8000);
-    console.log('MongoDB connected');
+    app.listen(serverPort);
+    console.log(`🚀 Server ready at http://localhost:${PORT}`);
   })
   .catch((err) => {
     console.log(err);
