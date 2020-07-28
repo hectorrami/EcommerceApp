@@ -248,7 +248,7 @@ class EventsPage extends Component {
                     minLength="5"
                   />
                 </div>
-                {/* <div className="form-control">
+                <div className="form-control">
                   <label htmlFor="date">Date</label>
                   <input
                     type="datetime-local"
@@ -256,7 +256,7 @@ class EventsPage extends Component {
                     id="date"
                     ref={this.dateElRef}
                   />
-                </div> */}
+                </div>
                 <div className="form-control">
                   <label htmlFor="description">Product Description</label>
                   <textarea
